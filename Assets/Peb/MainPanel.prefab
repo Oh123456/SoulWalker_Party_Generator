@@ -1311,6 +1311,7 @@ MonoBehaviour:
   content: {fileID: 7694873705277925483}
   playerList: {fileID: 1460283536246153989, guid: 23a63ea6cbcea05468d39990f883f451,
     type: 3}
+  test: {fileID: 877788851453012799}
   isPlayerList: 0
 --- !u!1 &5704770864016193914
 GameObject:
@@ -1716,6 +1717,7 @@ MonoBehaviour:
   content: {fileID: 3121179856265412495}
   playerList: {fileID: 1460283536246153989, guid: 23a63ea6cbcea05468d39990f883f451,
     type: 3}
+  test: {fileID: 6832307939966756140}
   isPlayerList: 1
 --- !u!1 &7065376556121574670
 GameObject:
@@ -2060,4 +2062,15 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1376120304837910305}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1615293571280011576}
+        m_MethodName: OnAdd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

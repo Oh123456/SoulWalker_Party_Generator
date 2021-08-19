@@ -4,8 +4,107 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+enum PlayerCharacter
+{
+    HARU = 1,
+    ERWIN,
+    LILY,
+    STELLA,
+    JIN,
+    IRIS,
+    CHII,
+    EPHNEL,
+    LEENABI
+}
+
+public struct CharacterData
+{
+    static public Color GetCharacterColor(int num)
+    {
+        Color retcolor;
+        PlayerCharacter playerCharacter = (PlayerCharacter)num;
+        switch (playerCharacter)
+        {
+            case PlayerCharacter.CHII:
+                ColorUtility.TryParseHtmlString("#910204", out retcolor);
+                break;
+            case PlayerCharacter.EPHNEL:
+                ColorUtility.TryParseHtmlString("#66D066", out retcolor);
+                break;
+            case PlayerCharacter.ERWIN:
+                ColorUtility.TryParseHtmlString("#1E90FF", out retcolor);
+                break;
+            case PlayerCharacter.HARU:
+                ColorUtility.TryParseHtmlString("#FFA500", out retcolor);
+                break;
+            case PlayerCharacter.IRIS:
+                ColorUtility.TryParseHtmlString("#DF0101", out retcolor);
+                break;
+            case PlayerCharacter.JIN:
+                ColorUtility.TryParseHtmlString("#FFD700", out retcolor);
+                break;
+            case PlayerCharacter.LEENABI:
+                 ColorUtility.TryParseHtmlString("#B7FFEF", out retcolor);  
+                break;
+            case PlayerCharacter.LILY:
+                ColorUtility.TryParseHtmlString("#DF01A5", out retcolor);
+                break;
+            case PlayerCharacter.STELLA:
+                ColorUtility.TryParseHtmlString("#9400D3", out retcolor);
+                break;
+            default:
+                ColorUtility.TryParseHtmlString("#FFFFFF", out retcolor);
+                break;
+        }
+
+        return retcolor;
+    }
+
+    static public string GetCharacterName(int num)
+    {
+        string retname = "";
+        PlayerCharacter playerCharacter = (PlayerCharacter)num;
+        switch (playerCharacter)
+        {
+            case PlayerCharacter.CHII:
+                retname = "치이";
+                break;
+            case PlayerCharacter.EPHNEL:
+                retname = "에프넬";
+                break;
+            case PlayerCharacter.ERWIN:
+                retname = "어윈";
+                break;
+            case PlayerCharacter.HARU:
+                retname = "하루";
+                break;
+            case PlayerCharacter.IRIS:
+                retname = "이리스";
+                break;
+            case PlayerCharacter.JIN:
+                retname = "진";
+                break;
+            case PlayerCharacter.LEENABI:
+                retname = "이나비";
+                break;
+            case PlayerCharacter.LILY:
+                retname = "릴리";
+                break;
+            case PlayerCharacter.STELLA:
+                retname = "스텔라";
+                break;
+            default:
+                break;
+        }
+
+        return retname;
+    }
+}
+
+
 public class DataBaseManager : MonoSingleton<DataBaseManager>
 {
+
 
     public struct Data
     {
@@ -51,6 +150,8 @@ public class DataBaseManager : MonoSingleton<DataBaseManager>
     private string[] cols = new string[4] { colName, colDPS, colJob, colIsWeapone };
 
     public List<Data> datas = new List<Data>();
+
+    public int dataCount;
 
     protected override void Awake()
     {

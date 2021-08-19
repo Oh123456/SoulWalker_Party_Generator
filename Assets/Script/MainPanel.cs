@@ -16,6 +16,15 @@ public class MainPanel : MonoSingleton<MainPanel>
     [SerializeField]
     Text avgDPS;
 
+    public PlayerDataScroll PlayerDataScroll
+    { get { return playerDataScroll; } }
+
+
+    private void Start()
+    {
+        UpdateUI();
+    }
+
     public void SelectPlayer(PlayerList SelectedPlayerList)
     {
         if (SelectedPlayerList.parentsplayerDataScroll == playerDataScroll)
@@ -46,7 +55,15 @@ public class MainPanel : MonoSingleton<MainPanel>
             sum += item.DPS;
         }
 
-        avgDPS.text = "평균 DPS : " + (sum / count).ToString("F1");
+        if (count != 0)
+            avgDPS.text = "평균 DPS : " + (sum / count).ToString("F1");
+        else
+            avgDPS.text = "평균 DPS : 0.0 ";
     }
 
+
+    public void OnAdd()
+    {
+        PlayerAddPanel.Instance.gameObject.SetActive(true);
+    }
 }

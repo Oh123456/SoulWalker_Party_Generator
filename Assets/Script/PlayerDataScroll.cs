@@ -36,24 +36,25 @@ public class PlayerDataScroll : MonoBehaviour
 
 
             int count = DataBaseManager.Instance.datas.Count;
+            DataBaseManager.Instance.dataCount = count;
 
             float height = playerList.GetComponent<RectTransform>().rect.height;
             float width = content.rect.width;
 
-            content.sizeDelta = new Vector2(width, height * count);
+            content.sizeDelta = new Vector2(0.0f, height * count);
 
             playerLists?.Clear();
 
             for (int i = 0; i < count; i++)
             {
-                PlayerList spawnObject = Instantiate<PlayerList>(playerList, content);
+                PlayerList spawnObject = Instantiate<PlayerList>(playerList, content.transform);
                 spawnObject.Setting(DataBaseManager.Instance.datas[i], this);
                 playerLists.Add(spawnObject);
             }
         }
         else
         {
-            content.sizeDelta = new Vector2(content.rect.width, 0.0f);
+            content.sizeDelta = new Vector2(0.0f, 0.0f);
         }
     }
 
@@ -95,4 +96,13 @@ public class PlayerDataScroll : MonoBehaviour
         content.sizeDelta = new Vector2(width, height * count);
     }
 
+
+    public void AddData(string name, float dps, int job , int isWeapon = 1)
+    {
+        DataBaseManager.Data newdata = new DataBaseManager.Data(++DataBaseManager.Instance.dataCount,name, dps, job , isWeapon);
+
+        PlayerList spawnObject = Instantiate<PlayerList>(playerList, content);
+        spawnObject.Setting(newdata, this);
+        playerLists.Add(spawnObject);
+    }
 }

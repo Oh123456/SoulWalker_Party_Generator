@@ -13,7 +13,11 @@ public class PlayerList : MonoBehaviour
     [SerializeField]
     Toggle toggle;
     [SerializeField]
-    Button button;
+    Image icon;
+    [SerializeField]
+    Image bgImage;
+    [SerializeField]
+    Sprite[] characterImages;
 
     public int Job { get; private set; }
     public int ID { get; private set; }
@@ -28,12 +32,15 @@ public class PlayerList : MonoBehaviour
         DPS = data.dps;
         Job = data.job;
         ID = data.id;
-        if (data.isWeapon == 1)
-            toggle.isOn = true;
-        else
-            toggle.isOn = false;
+        //if (data.isWeapon == 1)
+        //    toggle.isOn = true;
+        //else
+        //    toggle.isOn = false;
 
         parentsplayerDataScroll = playerDataScroll;
+
+        bgImage.color = CharacterData.GetCharacterColor(Job);
+        icon.sprite = characterImages[Job - 1];
     }
 
 
