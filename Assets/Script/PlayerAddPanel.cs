@@ -28,7 +28,7 @@ public class PlayerAddPanel : MonoSingleton<PlayerAddPanel>
     public void On_Ok()
     {
         string userName = "'" + nameInputField.text + "'";
-        DataBaseManager.Instance.InsertInto(new string[] { userName, DPSInputField.text , selected.Job.ToString() ,"1"});
+        DataBaseManager.Instance.InsertInto(new string[] { (++DataBaseManager.Instance.lastID).ToString(), userName, DPSInputField.text , selected.Job.ToString()});
         MainPanel.Instance.PlayerDataScroll.AddData(nameInputField.text, float.Parse(DPSInputField.text) , selected.Job);
         this.gameObject.SetActive(false);
 

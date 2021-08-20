@@ -20,7 +20,7 @@ public class PlayerList : MonoBehaviour
     Sprite[] characterImages;
 
     public int Job { get; private set; }
-    public int ID { get; private set; }
+    public int ID { get; set; }
     public float DPS { get; private set; }
 
     public PlayerDataScroll parentsplayerDataScroll { get; set; }
@@ -48,4 +48,24 @@ public class PlayerList : MonoBehaviour
     {
         MainPanel.Instance.SelectPlayer(this);
     }
+
+    public void OnClickDelete()
+    {
+        DeletePanel.Instance.DeleteItem(this);
+    }
+
+    public void NameChange()
+    {
+        string userName = "'" + nameFied.text + "'";
+
+        DataBaseManager.Instance.UpdateInto(new string[] { DataBaseManager.colName }, new string[] { userName }, "rowid" , ID.ToString());
+    }
+
+    public void DPSChange()
+    {
+        string userDPS = dpsFied.text;
+
+        DataBaseManager.Instance.UpdateInto(new string[] { DataBaseManager.colDPS }, new string[] { userDPS }, "rowid", ID.ToString());
+    }
+
 }

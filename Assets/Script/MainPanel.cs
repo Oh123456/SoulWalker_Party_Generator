@@ -42,7 +42,7 @@ public class MainPanel : MonoSingleton<MainPanel>
     /// <summary>
     /// UI 업데이트
     /// </summary>
-    void UpdateUI()
+    public void UpdateUI()
     {
         int count = selectedPlayerdataScroll.PlayerLists.Count;
         playerCount.text = "총 인원 : " + count.ToString();
@@ -65,5 +65,22 @@ public class MainPanel : MonoSingleton<MainPanel>
     public void OnAdd()
     {
         PlayerAddPanel.Instance.gameObject.SetActive(true);
+    }
+
+    public void OnDelete()
+    {
+        DeletePanel.Instance.gameObject.SetActive(true);
+    }
+
+    public void ListUpdate()
+    {
+        playerDataScroll.DataUpdate();
+        selectedPlayerdataScroll.Clear();
+    }
+
+    public void ListAllUpdate()
+    {
+        playerDataScroll.UpdateScrollList();
+        selectedPlayerdataScroll.UpdateScrollList();
     }
 }

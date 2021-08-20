@@ -24,33 +24,35 @@ public class PlayerDataScroll : MonoBehaviour
         get { return playerLists; }
     }
 
+    private void OnEnable()
+    {
+        if (isPlayerList)
+            DataUpdate();
+    }
+
     private void Start()
     {
         if (isPlayerList)
         {
-            DataBaseManager.Instance.ReadFullTable();
-            //DataBaseManager.Instance.InsertInto(new string[] {"'몽총이'","1000.0","0" ,"1" });
-            //DataBaseManager.Instance.InsertInto(new string[] {"'혜나니이임'","1234.5","0" ,"1" });
-            //DataBaseManager.Instance.InsertInto(new string[] {"'머장'","1111.1","0" ,"1" });
-            //DataBaseManager.Instance.InsertInto(new string[] {"'김픽쉬'","1222.2","0" ,"1" });
+            DataUpdate();
+            //DataBaseManager.Instance.ReadFullTable();
 
 
-            int count = DataBaseManager.Instance.datas.Count;
-            DataBaseManager.Instance.dataCount = count;
+            //int count = DataBaseManager.Instance.datas.Count;
 
-            float height = playerList.GetComponent<RectTransform>().rect.height;
-            float width = content.rect.width;
+            //float height = playerList.GetComponent<RectTransform>().rect.height;
+            //float width = content.rect.width;
 
-            content.sizeDelta = new Vector2(0.0f, height * count);
+            //content.sizeDelta = new Vector2(0.0f, height * count);
 
-            playerLists?.Clear();
+            //playerLists?.Clear();
 
-            for (int i = 0; i < count; i++)
-            {
-                PlayerList spawnObject = Instantiate<PlayerList>(playerList, content.transform);
-                spawnObject.Setting(DataBaseManager.Instance.datas[i], this);
-                playerLists.Add(spawnObject);
-            }
+            //for (int i = 0; i < count; i++)
+            //{
+            //    PlayerList spawnObject = Instantiate<PlayerList>(playerList, content.transform);
+            //    spawnObject.Setting(DataBaseManager.Instance.datas[i], this);
+            //    playerLists.Add(spawnObject);
+            //}
         }
         else
         {
@@ -89,6 +91,11 @@ public class PlayerDataScroll : MonoBehaviour
     public void UpdateScrollList()
     {
         int count = playerLists.Count;
+        foreach (var item in playerLists)
+        {
+            if (item == null)
+                count--;
+        }
 
         float height = playerList.GetComponent<RectTransform>().rect.height;
         float width = content.rect.width;
@@ -99,10 +106,69 @@ public class PlayerDataScroll : MonoBehaviour
 
     public void AddData(string name, float dps, int job , int isWeapon = 1)
     {
-        DataBaseManager.Data newdata = new DataBaseManager.Data(++DataBaseManager.Instance.dataCount,name, dps, job , isWeapon);
+        DataBaseManager.Data newdata = new DataBaseManager.Data(DataBaseManager.Instance.lastID,name, dps, job , isWeapon);
+        DataBaseManager.Instance.datas.Add(newdata);
+        DataBaseManager.Instance.dataCount++;
 
         PlayerList spawnObject = Instantiate<PlayerList>(playerList, content);
         spawnObject.Setting(newdata, this);
         playerLists.Add(spawnObject);
+    }
+
+    public void DataUpdate()
+    {
+        Clear();
+
+        DataBaseManager.Instance.ReadFullTable();
+
+
+        int count = DataBaseManager.Instance.datas.Count;
+
+        float height = playerList.GetComponent<RectTransform>().rect.height;
+        float width = content.rect.width;
+
+        content.sizeDelta = new Vector2(0.0f, height * count);
+
+        playerLists?.Clear();
+
+        for (int i = 0; i < count; i++)
+        {
+            PlayerList spawnObject = Instantiate<PlayerList>(playerList, content.transform);
+            spawnObject.Setting(DataBaseManager.Instance.datas[i], this);
+            playerLists.Add(spawnObject);
+        }
+    }
+
+    /// <summary>
+    /// 리스트 클리어
+    /// </summary>
+    public void Clear()
+    {
+        //오브젝트 풀링 만들기 귀찮다 리스트 얼마없을거 같으니 그냥한다
+        int childCount = content.transform.childCount;
+
+        for (int i = 0; i < childCount; i++)
+        {
+            Destroy(content.transform.GetChild(i).gameObject);
+        }
+        playerLists?.Clear();
+    }
+
+    public void DeleteItem(PlayerList playerList)
+    {
+        foreach (var item in playerLists.ToList())
+        {
+            
+            if (playerList.ID == item.ID)
+            {
+                DataBaseManager.Instance.DeleteToID(item.ID.ToString());
+                playerLists.Remove(item);
+                Destroy(item.gameObject);
+                break;
+            }
+            
+        }
+
+        UpdateScrollList();
     }
 }

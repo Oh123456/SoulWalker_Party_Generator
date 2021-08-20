@@ -145,13 +145,14 @@ public class DataBaseManager : MonoSingleton<DataBaseManager>
     /// <summary>
     /// 무기유무
     /// </summary>
-    public const string colIsWeapone = "IsWeapon";
+    public const string colID = "ID";
 
-    private string[] cols = new string[4] { colName, colDPS, colJob, colIsWeapone };
+    private string[] cols = new string[4] { colName, colDPS, colJob, colID };
 
     public List<Data> datas = new List<Data>();
 
     public int dataCount;
+    public int lastID = 0;
 
     protected override void Awake()
     {
@@ -160,7 +161,7 @@ public class DataBaseManager : MonoSingleton<DataBaseManager>
         Debug.Log(filePath);
         dataBase = new DataBase("data source = " + filePath);
 
-        dataBase.CreateTableEx(tableName, cols , new string[] { "TEXT", "REAL", "INTEGER" , "INTEGER" });
+        dataBase.CreateTableEx(tableName, cols , new string[] { "INTEGER"  , "TEXT", "REAL", "INTEGER"});
     }
 
     /// <summary>
@@ -201,7 +202,8 @@ public class DataBaseManager : MonoSingleton<DataBaseManager>
     /// <param name="id"></param>
     public void DeleteToID(string id)
     {
-        dataBase.Delete(tableName, "rowid", "=" , id);
+        //dataBase.Delete(tableName, "rowid", "=" , id);
+        dataBase.Delete(tableName, colID, "=" , id);
     }
 
     /// <summary>
@@ -209,11 +211,15 @@ public class DataBaseManager : MonoSingleton<DataBaseManager>
     /// </summary>
     public void ReadFullTable()
     {
+        datas?.Clear();
         SqliteDataReader reader = dataBase.ReadFullTable(tableName);
         // 데이터 추가할것
-        int indx = 0;
+        //int indx = 1;
         while (reader.Read())
-            datas.Add(new Data(indx++,reader.GetString(0),reader.GetFloat(1),reader.GetInt32(2), reader.GetInt32(3)));
-        
+        {
+            lastID = reader.GetInt32(0);
+            datas.Add(new Data(lastID, reader.GetString(1), reader.GetFloat(2), reader.GetInt32(3), lastID));
+        }
+        dataCount = datas.Count;
     }
 }
