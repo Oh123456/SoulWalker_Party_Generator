@@ -22,6 +22,7 @@ public class PlayerList : MonoBehaviour
     public int Job { get; private set; }
     public int ID { get; set; }
     public float DPS { get; private set; }
+    public string userName { get { return nameFied.text; } }
 
     public PlayerDataScroll parentsplayerDataScroll { get; set; }
 

@@ -72,6 +72,13 @@ public class MainPanel : MonoSingleton<MainPanel>
         DeletePanel.Instance.gameObject.SetActive(true);
     }
 
+    public void GoToParty()
+    {
+        if (selectedPlayerdataScroll.PlayerLists.Count >= 4)
+            PartyPanel.Instance.Show(selectedPlayerdataScroll.PlayerLists);
+
+    }
+
     public void ListUpdate()
     {
         playerDataScroll.DataUpdate();

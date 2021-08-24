@@ -11,7 +11,7 @@ public class CharacterList : MonoBehaviour
 
     private void Awake()
     {
-        content.sizeDelta = new Vector2(content.rect.width , characterSelect.GetComponent<RectTransform>().rect.height * 9);
+        content.sizeDelta = new Vector2(0.0f , characterSelect.GetComponent<RectTransform>().rect.height * 9);
         for (int i = 0; i < 9; i++)
         {
             Instantiate(characterSelect, content.transform).Setting(i + 1);

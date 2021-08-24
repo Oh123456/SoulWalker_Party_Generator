@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,14 +10,28 @@ public class PartyList : MonoBehaviour
     PartyPlayerList[] partyPlayerLists;
     [SerializeField]
     Text dpstext;
+    private List<PlayerList> playerLists;
 
-    public void Show()
+    public void Setting(List<PlayerList> playerLists)
     {
-        // 일단 다끈다
-        foreach (var item in partyPlayerLists)
+        this.playerLists = playerLists.ToList();
+
+        int count = playerLists.Count;
+        for (int i = 0; i < 4; i++)
         {
-            item.gameObject.SetActive(false);
+            if (i < count)
+            {
+                partyPlayerLists[i].Show();
+                partyPlayerLists[i].Setting(playerLists[i]);
+            }
+            else
+            {
+                partyPlayerLists[i].Hide();
+            }
+
         }
+
+        UpdateUI();
     }
 
     public void UpdateUI()
@@ -25,7 +40,7 @@ public class PartyList : MonoBehaviour
         int count = 0;
         foreach (var item in partyPlayerLists)
         {
-            if (item.gameObject.activeSelf == true)
+            if (item.isOn)
             {
                 sum += item.DPS;
                 count++;
@@ -33,5 +48,15 @@ public class PartyList : MonoBehaviour
         }
 
         dpstext.text = (sum / (float)count).ToString("F1");
+    }
+
+    public void Clear()
+    {
+        playerLists?.Clear();
+        foreach (var item in partyPlayerLists)
+        {
+            item.Hide();
+        }
+
     }
 }

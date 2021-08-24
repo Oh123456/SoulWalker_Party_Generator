@@ -288,6 +288,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762d77909b4378b49b7dd79861cee0cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  username: {fileID: 3710151909744809361}
+  dpstext: {fileID: 983577977874403031}
+  icon: {fileID: 5147622520441586899}
+  bg: {fileID: 703080067211620789}
+  characterImages:
+  - {fileID: 21300000, guid: 1be585a6f2cd97d448fdd97b0bde1bcd, type: 3}
+  - {fileID: 21300000, guid: 709320c4f90e1124ba04efe4f71fefe6, type: 3}
+  - {fileID: 21300000, guid: fde52d3faf5226c41a08af40428332a7, type: 3}
+  - {fileID: 21300000, guid: 18d1bf63577fa0443af8920bc32a68bf, type: 3}
+  - {fileID: 21300000, guid: 722978e0516d2cf4396fc4190bf384b1, type: 3}
+  - {fileID: 21300000, guid: eda6af6bc10ca924e9dbb5221b086d04, type: 3}
+  - {fileID: 21300000, guid: 48ede6945a9b90d419b1e52abe891dc4, type: 3}
+  - {fileID: 21300000, guid: 443491c9800ebaa45bf67ad456e5d417, type: 3}
+  - {fileID: 21300000, guid: 9793e6492353ee942aea2ece388cc63d, type: 3}
+  isOn: 0
 --- !u!1 &3699026774134399827
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,8 +421,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: OnClick
+      - m_Target: {fileID: 3106234916774398369}
+        m_MethodName: OnClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -856,7 +871,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7382656040564696363}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d199490a83bb2b844b9695cbf13b01ef, type: 3}
   m_Name: 
@@ -976,7 +991,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7427398107243453740}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d199490a83bb2b844b9695cbf13b01ef, type: 3}
   m_Name: 
